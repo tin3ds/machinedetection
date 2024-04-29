@@ -5,16 +5,19 @@ class HttpUtil {
     // NOTE: should be private
     static headers = {
         aws: {},
-        azure: {
+        azure: { cloud: `azure`,
             Metadata: `true`,
+           
         },
-        gcp: {
+        gcp: {cloud: `gcp`,
             "Metadata-Flavor": `Google`,
+			
         },
-        oracle: {
-            "Authorization": "Bearer Oracle"
+        oracle: {cloud: `oracle`,
+            "Authorization": "Bearer Oracle",
+			
         },
-        coreweave: {},
+        coreweave: {cloud: `coreweave`},
     };
 
     static buildParams(cloudProvider, path) {
