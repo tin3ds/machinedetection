@@ -25,7 +25,7 @@ class AWS {
             let { data, error } = await AWS.getTags();
 
             if (error) {
-                return { ...error, meta: data }
+                return { error, meta: data }
             }
             result[`tags`] = data;
             result[`platformType`] = 2;
@@ -38,6 +38,14 @@ class AWS {
     // NOTE: should be private
     static async getTags() {
         try {
+            // Detect Allow tags in instance metadata is checked
+            try {
+                const params = HttpUtil.buildParams(`aws`, `/latest/meta-data/tags/`);
+                await HttpUtil.httpRequest(params);
+            } catch (error) {
+                return { error: 'Metadata tag is not allowed' };
+            }
+
             const params = HttpUtil.buildParams(`aws`, `/latest/meta-data/tags/instance/`);
             const res = await HttpUtil.httpRequest(params);
             const tagKeys = res.split(`\n`);
@@ -57,4 +65,5 @@ class AWS {
         }
     }
 }
+
 exports.AWS = AWS;
