@@ -77,7 +77,7 @@ class GCP {
             const tagKeys = res.split(`\n`);
 
             if (!tagKeys.includes('enable-guest-attributes')) {
-                return { error: 'gcp Metadata tag is not allowed' };
+                return { error: 'GCP Metadata tag is not allowed, file /MachineDetection/Clouds/GCP.js' };
             }
 
             const result = {};

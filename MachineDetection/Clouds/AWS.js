@@ -43,7 +43,7 @@ class AWS {
                 const params = HttpUtil.buildParams(`aws`, `/latest/meta-data/tags/`);
                 await HttpUtil.httpRequest(params);
             } catch (error) {
-                return { error: 'aws Metadata tag is not allowed' };
+                return { error: 'AWS Metadata tag is not allowed, file /MachineDetection/Clouds/AWS.js' };
             }
 
             const params = HttpUtil.buildParams(`aws`, `/latest/meta-data/tags/instance/`);
