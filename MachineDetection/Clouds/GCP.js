@@ -42,8 +42,9 @@ class GCP {
             }
 
             let { data, error } = await GCP.getTags();
+
             if (error) {
-                return { ...error, meta: data }
+                return { error, meta: data }
             }
             //console.logColor(logging.Yellow, `tags: ${JSON.stringify(tags)}`);
 
@@ -59,9 +60,9 @@ class GCP {
     // NOTE: should be private
     static async getTags() {
         try {
-			
+
             //const params = HttpUtil.buildParams(`gcp`, `http://metadata.google.internal/computeMetadata/v1/instance/guest-attributes/e3ds/`);
-			
+
 			//const params = HttpUtil.buildParams(`gcp`, `http://metadata.google.internal/computeMetadata/v1/instance/guest-attributes`);
 			const params = HttpUtil.buildParams(`gcp`, `http://metadata.google.internal/computeMetadata/v1/instance/attributes/`);
 			//http://metadata.google.internal/computeMetadata/v1/instance/attributes/
@@ -74,6 +75,11 @@ class GCP {
 			//console.log(res)
 			//const labels = response.data.labels;
             const tagKeys = res.split(`\n`);
+
+            if (!tagKeys.includes('enable-guest-attributes')) {
+                return { error: 'gcp Metadata tag is not allowed' };
+            }
+
             const result = {};
 
             for (const tagKey of tagKeys) {
@@ -91,4 +97,5 @@ class GCP {
         }
     }
 }
+
 exports.GCP = GCP;
