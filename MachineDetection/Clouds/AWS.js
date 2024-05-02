@@ -36,7 +36,6 @@ class AWS {
             result[`platformType`] = 2;
             return { data: result };
         } catch (err) {
-            TelegramNotiUtil.postToTelegram(`AWS Err: ${JSON.stringify(result)} - ${err.message}`);
             return { error: JSON.stringify(err) }
         }
     }

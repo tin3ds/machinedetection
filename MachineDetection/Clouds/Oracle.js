@@ -1,5 +1,4 @@
 const { HttpUtil } = require("../Utils/HttpUtil.js");
-const { TelegramNotiUtil } = require("../Utils/TelegramNotiUtil.js");
 
 class Oracle {
   static async getMetadata() {
@@ -16,10 +15,6 @@ class Oracle {
       result[`platformType`] = 5;
       return { data: result };
     } catch (err) {
-      TelegramNotiUtil.postToTelegram(
-        `Oracle Err: ${JSON.stringify(result)} - ${err.message}`
-      );
-
       return { error: JSON.stringify(err) };
     }
   }
