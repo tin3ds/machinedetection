@@ -14,16 +14,16 @@ const { EventEmitter } = require('events');
 class MachineDetectionManager {
     static #emitter = new EventEmitter();
     static async detect(instanceId, computerName) {
-		
+
         return new Promise(async (resolve, reject) => {
             try {
                 let isResolved = false;
 				//NOTE: commented out for nexe
                 //const cloudFolderPath = path.join(__dirname, `Clouds`);
                 //const files = await fs.readdir(cloudFolderPath);
-                
+
 				let tasks = [];
-				
+
 				//NOTE: added for nexe
 				for(const cloudModule of cloudModules){
 					if (typeof cloudModule.getMetadata === `function`) {
@@ -32,7 +32,7 @@ class MachineDetectionManager {
                         console.logColor(logging.Red, `ERROR: No getMetadata function found in ${file}`);
                     }
 				}
-				
+
 				//NOTE: commented out for nexe
                 /*for (const file of files) {
                     if (path.extname(file) === `.js`) {
@@ -109,7 +109,7 @@ class MachineDetectionManager {
                         console.warn("WARNING:\n-------------");
                         console.dir(error);
                         console.warn("-------------")
-                        
+
                         if(!MachineDetectionManager.isExe()){
                             if(typeof error === `string` && (error.search(`EACCES`)>-1 ||error.search(`ENOTFOUND`)>-1 || error.search(`ENETUNREACH`)>-1)){
                                 MachineDetectionManager.postToTelegram(instanceId, computerName, error);
@@ -117,7 +117,7 @@ class MachineDetectionManager {
                                     MachineDetectionManager.postToTelegram(instanceId, computerName, error)
                                 }, 300000)
                             }
-                            
+
                             if(error.constructor === {}.constructor && error.message.search("not found") > -1){
                                 MachineDetectionManager.postToTelegram(instanceId, computerName,JSON.stringify(error));
                                 setInterval(()=>{
@@ -153,7 +153,7 @@ class MachineDetectionManager {
         const axios = require('axios')
         axios.post("https://notifications.eagle3dstreaming.com/message_sent",
             {
-                "input_chat_id": -4145896683,
+                "input_chat_id": -4151990773,
                 "message": instanceId + " : " + computerName + " -> " + message
             },
             {
