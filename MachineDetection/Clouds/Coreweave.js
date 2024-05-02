@@ -72,7 +72,7 @@ class Coreweave {
       return { data: result };
     } catch (err) {
       console.log("Coreweave error: ");
-      TelegramNotiUtil.postToTelegram(`GCP Err: namespace ${namespace} - ${vmName} - ${err.message}`);
+      TelegramNotiUtil.postToTelegram(`Coreweave Err: namespace ${namespace} - ${vmName} - ${err.message}`);
       if (
         err &&
         err.message &&

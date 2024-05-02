@@ -24,7 +24,7 @@ class Azure {
       result[`platformType`] = 4;
       return { data: result };
     } catch (err) {
-      TelegramNotiUtil.postToTelegram(`GCP Err: ${JSON.stringify(result)} - ${err.message}`);
+      TelegramNotiUtil.postToTelegram(`Azure Err: ${JSON.stringify(result)} - ${err.message}`);
       return { error: JSON.stringify(err) };
     }
   }
