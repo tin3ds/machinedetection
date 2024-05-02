@@ -44,7 +44,10 @@ class GCP {
             let { data, error } = await GCP.getTags();
 
             if (error) {
-                return { error, meta: data }
+                result[`tags`] = data;
+                result[`platformType`] = 3;
+                console.error(`Err: ${result} - ${error}`);
+                return { error, data: result };
             }
             //console.logColor(logging.Yellow, `tags: ${JSON.stringify(tags)}`);
 

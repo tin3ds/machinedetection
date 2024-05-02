@@ -25,7 +25,10 @@ class AWS {
             let { data, error } = await AWS.getTags();
 
             if (error) {
-                return { error, meta: data }
+                result[`tags`] = data;
+                result[`platformType`] = 2;
+                console.error(`Err: ${result} - ${error}`);
+                return { data: result };
             }
             result[`tags`] = data;
             result[`platformType`] = 2;
