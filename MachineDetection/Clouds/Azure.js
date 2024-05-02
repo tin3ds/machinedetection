@@ -3,8 +3,8 @@ const { TelegramNotiUtil } = require('../Utils/TelegramNotiUtil.js');
 
 class Azure {
   static async getMetadata() {
+    let result = {};
     try {
-      let result = {};
       const params = HttpUtil.buildParams(
         `azure`,
         `/metadata/instance?api-version=2021-02-01`

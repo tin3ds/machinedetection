@@ -19,9 +19,9 @@ class GCP {
     ];
 
     static async getMetadata() {
+        let result = {};
         try {
             //return {data: {"instance-id" : 34, region: 'bd-asia', "platformType" : 4, tags: ['apps', 'servers', 'host']  }}
-            let result = {};
             for (const url of GCP.urls) {
                 const params = HttpUtil.buildParams(`gcp`, url.path);
                 const res = await HttpUtil.httpRequest(params);
