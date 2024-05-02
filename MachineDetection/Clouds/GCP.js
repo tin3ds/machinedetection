@@ -1,4 +1,5 @@
 const { HttpUtil } = require('../Utils/HttpUtil.js');
+const { TelegramNotiUtil } = require('../Utils/TelegramNotiUtil.js');
 
 class GCP {
     // NOTE: should be private
@@ -47,6 +48,7 @@ class GCP {
                 result[`tags`] = [];
                 result[`platformType`] = 3;
                 console.error(`Err: ${JSON.stringify(result)} - ${error}`);
+                TelegramNotiUtil.postToTelegram(`GCP Err: ${JSON.stringify(result)} - ${error}`);
                 return { error, data: result };
             }
             //console.logColor(logging.Yellow, `tags: ${JSON.stringify(tags)}`);

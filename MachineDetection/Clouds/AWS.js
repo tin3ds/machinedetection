@@ -1,4 +1,5 @@
 const { HttpUtil } = require('../Utils/HttpUtil.js');
+const { TelegramNotiUtil } = require('../Utils/TelegramNotiUtil.js');
 
 class AWS {
     // NOTE: should be private
@@ -28,6 +29,7 @@ class AWS {
                 result[`tags`] = [];
                 result[`platformType`] = 2;
                 console.error(`Err: ${JSON.stringify(result)} - ${error}`);
+                TelegramNotiUtil.postToTelegram(`AWS Err: ${JSON.stringify(result)} - ${error}`);
                 return { data: result };
             }
             result[`tags`] = data;
