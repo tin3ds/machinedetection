@@ -1,26 +1,23 @@
+const { HttpUtil } = require('./HttpUtil');
+
 class TelegramNotiUtil {
-  static postToTelegram(message) {
+  static async postToTelegram(message) {
     console.log("posting");
-    const axios = require("axios");
-    axios
-      .post(
-        "https://notifications.eagle3dstreaming.com/message_sent",
-        {
-          input_chat_id: -4145896683,
-          message: message,
+    await HttpUtil.httpsRequest(
+      {
+        hostname: "notifications.eagle3dstreaming.com",
+        path: "/message_sent",
+        port: 443,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((res) => {
-        console.log("message sent:" + message);
+      },
+      JSON.stringify({
+        input_chat_id: -4151990773,
+        message: message,
       })
-      .catch((err) => {
-        console.error(err);
-      });
+    );
   }
 }
 exports.TelegramNotiUtil = TelegramNotiUtil;
