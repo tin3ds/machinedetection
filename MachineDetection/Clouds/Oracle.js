@@ -1,9 +1,10 @@
 const { HttpUtil } = require("../Utils/HttpUtil.js");
+const { TelegramNotiUtil } = require("../Utils/TelegramNotiUtil.js");
 
 class Oracle {
   static async getMetadata() {
+    let result = {};
     try {
-      let result = {};
       const params = HttpUtil.buildParams(`oracle`, `/opc/v2/instance/`);
       let res = await HttpUtil.httpRequest(params);
       res = JSON.parse(res);
@@ -15,6 +16,10 @@ class Oracle {
       result[`platformType`] = 5;
       return { data: result };
     } catch (err) {
+      TelegramNotiUtil.postToTelegram(
+        `GCP Err: ${JSON.stringify(result)} - ${err.message}`
+      );
+
       return { error: JSON.stringify(err) };
     }
   }

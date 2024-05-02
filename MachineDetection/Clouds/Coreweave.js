@@ -2,6 +2,7 @@ const { HttpUtil } = require("../Utils/HttpUtil.js");
 const fs = require("fs");
 const os = require("os");
 const path = require("path");
+const { TelegramNotiUtil } = require('../Utils/TelegramNotiUtil.js');
 
 class Coreweave {
   static async getMetadata() {
@@ -71,6 +72,7 @@ class Coreweave {
       return { data: result };
     } catch (err) {
       console.log("Coreweave error: ");
+      TelegramNotiUtil.postToTelegram(`GCP Err: namespace ${namespace} - ${vmName} - ${err.message}`);
       if (
         err &&
         err.message &&
