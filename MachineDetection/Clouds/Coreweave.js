@@ -2,6 +2,7 @@ const { HttpUtil } = require("../Utils/HttpUtil.js");
 const fs = require("fs");
 const os = require("os");
 const path = require("path");
+const { TelegramNotiUtil } = require('../Utils/TelegramNotiUtil.js');
 
 class Coreweave {
   static async getMetadata() {
@@ -23,7 +24,7 @@ class Coreweave {
 
       const res = await HttpUtil.httpsRequest(
         {
-          hostname: "new-azure-vm-api.eaglepixelstreaming.com",
+          hostname: "vmm.eagle3dstreaming.com",
           path: "/api/v1/coreweave/get-tags",
           port: 443,
           method: "POST",
@@ -70,30 +71,19 @@ class Coreweave {
       //await sleep(30000);
       return { data: result };
     } catch (err) {
-      console.log("Coreweave error: ");
-      if (
-        err &&
-        err.message &&
-        typeof err.message == "string" &&
-        err.message.length &&
-        err.message.startsWith(`Request timed out after`)
-      ) {
-        let result = {};
-        result[`instance-id`] = vmName;
-        result[`region`] = null;
-        result[`name`] = vmName;
-        result[`namespace`] = namespace;
-        result[`platformType`] = 6;
-        result[`tags`] = {};
-        console.log("SENDING HALF RESPONSE");
-        return { data: result };
-      }
-      //console.log(JSON.stringify(err))
-      //console.dir(err)
-      //console.log(err.toString())
-      //console.log(err.stack)
-      return { error: JSON.stringify(err) };
+      console.log("Coreweave error: ", err);
+      TelegramNotiUtil.postToTelegram(`Coreweave Err: ${err}`);
+      let result = {};
+      result[`instance-id`] = vmName;
+      result[`region`] = null;
+      result[`name`] = vmName;
+      result[`namespace`] = namespace;
+      result[`platformType`] = 6;
+      result[`tags`] = {};
+      console.log("SENDING HALF RESPONSE");
+      return { data: result, error: JSON.stringify(err) };
     }
   }
 }
+
 exports.Coreweave = Coreweave;
