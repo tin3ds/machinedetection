@@ -72,7 +72,7 @@ class Coreweave {
       return { data: result };
     } catch (err) {
       console.log("Coreweave error: ", err);
-      TelegramNotiUtil.postToTelegram(`Coreweave Err: ${err}`);
+      TelegramNotiUtil.postToTelegram(`Coreweave Err: ${namespace} vm: ${vmName} ${err}`);
       let result = {};
       result[`instance-id`] = vmName;
       result[`region`] = null;
